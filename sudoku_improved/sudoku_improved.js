@@ -104,6 +104,8 @@ function selectTile() {
 - add button to check board
 - add button to check boardTile
 - add pencil notes functionality (little numbers)
+- add generation of new boards/solutions
+- click boardTile first, then click any digitTile to place a digit
 */
 
 /* IMPROVEMENTS FINISHED
