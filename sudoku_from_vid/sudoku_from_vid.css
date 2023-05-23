@@ -1,5 +1,5 @@
 body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: Calibri;
     text-align: center;
 }
 
@@ -15,7 +15,6 @@ hr {
     width: 450px;
     height: 450px;
 
-    background-color: yellowgreen;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +24,6 @@ hr {
     width: 450px;
     height: 50px;
 
-    background-color: yellowgreen;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -56,4 +54,20 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.number-selected {
+    background-color: gray;
+}
+
+.tile-start {
+    background-color: whitesmoke;
+}
+
+.horizontal-line {
+    border-bottom: 1px solid black;
+}
+
+.vertical-line {
+        border-right: 1px solid black;
 }
