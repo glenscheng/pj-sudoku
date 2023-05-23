@@ -73,8 +73,6 @@ function selectNumber() {
     numSelected.classList.add("number-selected"); // add graying
 }
 
-// make unselectNumber when clicking already gray digitsTile
-
 function selectTile() {
     if (numSelected != null) { // digit selection
         if (this.innerText != "") { // return if already number at that boardTile
@@ -93,3 +91,21 @@ function selectTile() {
         }
     }
 }
+
+
+/* IMPROVEMENTS IN PROGRESS
+- when clicking already gray digitsTile, make it back to white
+- add timer
+- make digit disappear once all 9 are on the board
+- when clicking a number on a boardTile, highlight all of the same numbers on the board
+- allow incorrect placements
+- remove error count
+- add button to show solution
+- add button to check board
+- add button to check boardTile
+- add pencil notes functionality (little numbers)
+*/
+
+/* IMPROVEMENTS FINISHED
+
+*/
