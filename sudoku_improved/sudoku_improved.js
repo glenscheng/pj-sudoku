@@ -100,56 +100,10 @@ function selectDigit() {
         digitSelected = this;
 
         let oldTileSelectedInnerText = tileSelected.innerText;
-        /*if (checkToStopPlacingDigits == true) {
+        if (checkToStopPlacingDigits() === true) {
             return;
-        }*/
-        switch(digitSelected.id) {
-            case "1":
-                if (one == 9) {
-                    return;
-                }
-                break;
-            case "2":
-                if (two == 9) {
-                    return;
-                }
-                break;
-            case "3":
-                if (three == 9) {
-                    return;
-                }
-                break;
-            case "4":
-                if (four == 9) {
-                    return;
-                }
-                break;
-            case "5":
-                if (five == 9) {
-                    return;
-                }
-                break;
-            case "6":
-                if (six == 9) {
-                    return;
-                }
-                break;
-            case "7":
-                if (seven == 9) {
-                    return;
-                }
-                break;
-            case "8":
-                if (eight == 9) {
-                    return;
-                }
-                break;
-            case "9":
-                if (nine == 9) {
-                    return;
-                }
-                break;
         }
+       
         tileSelected.innerText = digitSelected.id; // place down selected digit
         if (oldDigitSelected != null && oldTileSelectedInnerText != "" &&
             tileSelected.innerText != oldTileSelectedInnerText) {
@@ -326,6 +280,7 @@ function checkToStopPlacingDigits() {
                 }
                 break;
         }
+    return false;
 }
 
 /* IMPROVEMENTS IN PROGRESS
