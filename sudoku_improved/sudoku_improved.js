@@ -1,8 +1,6 @@
 var numSelected = null;
 var tileSelected = null;
 
-var errors = 0;
-
 var board = [
     "--74916-5",
     "2---6-3-9",
@@ -32,17 +30,6 @@ window.onload = function() {
 }
 
 function setGame() {
-    // digits 1-9
-    for (let i = 1; i <= 9; i++) {
-        // 
-        let digitsTile = document.createElement("div"); // create a div
-        digitsTile.id = i; // set id
-        digitsTile.innerText = i; // set digit
-        digitsTile.addEventListener("click", selectNumber); // detect click
-        digitsTile.classList.add("digits-tile"); // add formatting
-        document.getElementById("digits").appendChild(digitsTile);
-    }
-
     // board
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
@@ -63,51 +50,67 @@ function setGame() {
             document.getElementById("board").append(boardTile);
         }
     }
-}
-
-function selectNumber() {
-    if (numSelected != null) { // old selection
-        numSelected.classList.remove("number-selected"); // remove previous graying
+    
+    // digits 1-9
+    for (let i = 1; i <= 9; i++) {
+        // 
+        let digitsTile = document.createElement("div"); // create a div
+        digitsTile.id = i; // set id
+        digitsTile.innerText = i; // set digit
+        digitsTile.addEventListener("click", selectNumber); // detect click
+        digitsTile.classList.add("digits-tile"); // add formatting
+        document.getElementById("digits").appendChild(digitsTile);
     }
-    numSelected = this; // new selection
-    numSelected.classList.add("number-selected"); // add graying
 }
 
 function selectTile() {
-    if (numSelected != null) { // digit selection
-        if (this.innerText != "") { // return if already number at that boardTile
+    if (tileSelected != null) { // old selection
+        tileSelected.classList.remove("number-selected"); // remove previous graying
+    }
+    if (tileSelected == this) {
+        tileSelected.classList.remove("number-selected"); // remove graying if clicked on again
+        tileSelected = null;
+        return;
+    }
+    tileSelected = this; // new selection
+    if (tileSelected.classList.contains("tile-start") == false) {
+        tileSelected.classList.add("number-selected"); // add graying
+    }
+}
+
+function selectNumber() {
+    if (tileSelected != null) { // digit selection
+        if (tileSelected.classList.contains("tile-start") == true) { // return if already number at that boardTile
             return;
         }
 
-        let coords = this.id.split("-"); // ["0", "0"] ...
+        let coords = tileSelected.id.split("-"); // ["0", "0"] ...
         let row = parseInt(coords[0]);
         let col = parseInt(coords[1]);
-        if (solution[row][col] == numSelected.id) {
-            this.innerText = numSelected.id; // place down selected digit IF IT IS CORRECT
-        }
-        else {
-            errors += 1;
-            document.getElementById("errors").innerText = errors;
-        }
+        tileSelected.innerText = this.id; // place down selected digit IF IT IS CORRECT
     }
 }
 
 
 /* IMPROVEMENTS IN PROGRESS
-- when clicking already gray digitsTile, make it back to white
 - add timer
 - make digit disappear once all 9 are on the board
 - when clicking a number on a boardTile, highlight all of the same numbers on the board
-- allow incorrect placements
-- remove error count
 - add button to show solution
 - add button to check board
 - add button to check boardTile
 - add pencil notes functionality (little numbers)
 - add generation of new boards/solutions
-- click boardTile first, then click any digitTile to place a digit
+- add button to clear board
+- using backspace deletes number on board
+- can use keyboard numbers to place down numbers
+- if a number is not supposed to be theer based on current board, make it red
 */
 
 /* IMPROVEMENTS FINISHED
+- when clicking already gray digitsTile, make it back to white
+- click boardTile first, then click any digitTile to place a digit
+- allow incorrect placements
+- remove error count
 
 */

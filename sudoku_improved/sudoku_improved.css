@@ -7,10 +7,6 @@ hr {
     width: 500px;
 }
 
-#errors {
-    color: firebrick;
-}
-
 #board {
     width: 450px;
     height: 450px;
