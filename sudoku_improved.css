@@ -8,6 +8,7 @@ hr {
 }
 
 #board {
+
     width: 450px;
     height: 450px;
 
@@ -26,6 +27,8 @@ hr {
 }
 
 .board-tile {
+    color: royalblue;
+
     width: 48px;
     height: 48px;
     border: 1px solid lightgray;
@@ -57,6 +60,7 @@ hr {
 }
 
 .tile-start {
+    color: black;
     background-color: whitesmoke;
 }
 
@@ -69,5 +73,9 @@ hr {
 }
 
 .incorrect-placement {
-color: red;
+    color: red;
+}
+
+.highlight-tile {
+    background-color: lightgoldenrodyellow;
 }

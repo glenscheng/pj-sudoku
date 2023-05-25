@@ -66,44 +66,27 @@ function setGame() {
 }
 
 function selectTile() { // highlights a boardTile
+    unhighlightSameNumbers();
     if (tileSelected != null) { // old selection
         tileSelected.classList.remove("number-selected"); // remove previous graying on another boardTile
     }
     if (tileSelected == this) {
         tileSelected.classList.remove("number-selected"); // remove graying if clicked on again
+        if (tileSelected != null && tileSelected.innerText != '') {
+            highlightSameNumbers();
+        }
         tileSelected = null;
         return;
     }
     tileSelected = this; // new selection
+    if (tileSelected != null && tileSelected.innerText != '') {
+        highlightSameNumbers();
+    }
     if (tileSelected.classList.contains("tile-start") == false) {
         tileSelected.classList.add("number-selected"); // add graying
     }
 
-    detectClicksOutsideBoard(); // removes selected boardTile graing when there is outside click
-}
-
-function detectClicksOutsideBoard() { // returns true if detected outside click, false if detected inside click
-    document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
-        let count = 0;
-        for (let r = 0; r < 9; r++) {
-            for (let c = 0; c < 9; c++) {
-                if (!(document.getElementById(String(r) + '-' + String(c)).contains(event.target))) {
-                    count++;
-                }
-            }
-        }
-        if (count == 81) {
-            unselectAllBoardTiles();
-        }
-    });
-}
-
-function unselectAllBoardTiles() { // gets rid of graying on all tiles
-    for (let r = 0; r < 9; r++) {
-        for (let c = 0; c < 9; c++) {
-            document.getElementById(String(r) + '-' + String(c)).classList.remove("number-selected");
-        }
-    }
+    detectClicksOutsideBoard(); // removes all boardTiles' formatting when there is outside click
 }
 
 function selectDigit() { // places down number
@@ -121,6 +104,7 @@ function selectDigit() { // places down number
         }
        
         tileSelected.innerText = digitSelected.id; // place down selected digit
+        highlightSameNumbers();
         let coords = tileSelected.id.split("-"); // ["0", "0"] ...
         let row = parseInt(coords[0]);
         let col = parseInt(coords[1]);
@@ -144,11 +128,55 @@ function selectDigit() { // places down number
     }
 }
 
+function highlightSameNumbers() {
+    tileSelected.classList.add("highlight-tile");
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (document.getElementById(String(r) + '-' + String(c)).innerText == tileSelected.innerText) {
+                document.getElementById(String(r) + '-' + String(c)).classList.add("highlight-tile");
+            }
+        }
+    }
+}
+
+function unhighlightSameNumbers() {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            document.getElementById(String(r) + '-' + String(c)).classList.remove("highlight-tile");
+        }
+    }
+}
+
+function detectClicksOutsideBoard() { // removes formatting on board if detected outside click, returns true if detected outside click, false if detected inside click
+    document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
+        let count = 0;
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                if (!(document.getElementById(String(r) + '-' + String(c)).contains(event.target))) {
+                    count++;
+                }
+            }
+        }
+        if (count == 81) {
+            unselectAllBoardTiles();
+            unhighlightSameNumbers();
+        }
+    });
+}
+
+function unselectAllBoardTiles() { // gets rid of graying on all tiles
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            document.getElementById(String(r) + '-' + String(c)).classList.remove("number-selected");
+        }
+    }
+}
+
 function checkCorrectPlacement() { // removes red font if any number on board is no longer incorrect
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             if (document.getElementById(String(r) + '-' + String(c)).classList.contains("incorrect-placement") == true) {
-                console.log("row col:", r, c);
+                // console.log("row col:", r, c);
                 if (checkIncorrectPlacement(r, c) == true) {
                     // console.log("row col:", r, c); 
                     document.getElementById(String(r) + '-' + String(c)).classList.remove("incorrect-placement");
@@ -165,7 +193,6 @@ function checkIncorrectPlacement(row, col) { // returns true if correct placemen
             continue;
         }
         if (document.getElementById(String(row) + '-' + String(c)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
-            console.log("return 1, c: ", c);
             return false;
         }
     }
@@ -175,7 +202,6 @@ function checkIncorrectPlacement(row, col) { // returns true if correct placemen
             continue;
         }
         if (document.getElementById(String(r) + '-' + String(col)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
-            console.log("return 2");
             return false;
         }
     }
@@ -187,7 +213,6 @@ function checkIncorrectPlacement(row, col) { // returns true if correct placemen
                 continue;
             }
             if (document.getElementById(String(r) + '-' + String(c)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
-                console.log("return 3");
                 return false;
             }
         }
@@ -279,8 +304,8 @@ function printDigitsCount() {
 }
 
 /* IMPROVEMENTS IN PROGRESS
+- allow only 3 mistakes
 - add timer
-- when clicking a number on a boardTile, highlight (yellow) all of the same numbers on the board
 - add button to show solution
 - add button to check board
 - add button to check boardTile
@@ -299,5 +324,6 @@ function printDigitsCount() {
 - make digit disappear once all 9 are on the board
 - if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
 - remove graying on boardTile when clicking outside board
+- when clicking a number on a boardTile, highlight (yellow) all of the same numbers on the board
 
 */
