@@ -95,28 +95,115 @@ function selectDigit() { // places down number
         }
        
         tileSelected.innerText = digitSelected.id; // place down selected digit
+        let coords = tileSelected.id.split("-"); // ["0", "0"] ...
+        let row = parseInt(coords[0]);
+        let col = parseInt(coords[1]);
+        board[row][col] = parseInt(digitSelected.id); // update board array for digit that was just placed
         if (oldDigitSelected != null && oldTileSelectedInnerText != "" &&
             tileSelected.innerText != oldTileSelectedInnerText) {
             digitsCount[parseInt(oldTileSelectedInnerText)]--;
         }
-        if (/*tileSelected.innerText == "" ||*/ tileSelected.innerText != oldTileSelectedInnerText) {
+        if (tileSelected.innerText != oldTileSelectedInnerText) {
             digitsCount[parseInt(digitSelected.id)]++;
         }
         completedDigit();
         unCompletedDigit();
         printDigitsCount();
 
-        checkPlacement();
+        if (checkIncorrectPlacement(row, col) == false) {
+            // make number of board red
+            tileSelected.classList.add("incorrect-placement");
+        }
+        checkCorrectPlacement();
     }
 }
 
-function checkPlacement() {
-    let coords = tileSelected.id.split("-"); // ["0", "0"] ...
-    let row = parseInt(coords[0]);
-    let col = parseInt(coords[1]);
+function checkCorrectPlacement() {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (document.getElementById(String(r) + '-' + String(c)).classList.contains("incorrect-placement") == true) {
+                console.log("row col:", r, c);
+                if (checkIncorrectPlacement(r, c) == true) {
+                    // console.log("row col:", r, c); 
+                    document.getElementById(String(r) + '-' + String(c)).classList.remove("incorrect-placement");
+                }
+            }
+        }
+    }
+}
+
+function checkIncorrectPlacement(row, col) {
     // check horizontal block
+    for (let c = 0; c < 9; c++) {
+        if (c == col) {
+            continue;
+        }
+        if (document.getElementById(String(row) + '-' + String(c)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
+            console.log("return 1, c: ", c);
+            return false;
+        }
+    }
     // check vertical block
+    for (let r = 0; r < 9; r++) {
+        if (r == row) {
+            continue;
+        }
+        if (document.getElementById(String(r) + '-' + String(col)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
+            console.log("return 2");
+            return false;
+        }
+    }
     // check 3x3 block
+    let [row_lb, row_ub, col_lb, col_ub] = determine3x3Block(row, col);
+    for (r = row_lb; r <= row_ub; r++) {
+        for (c = col_lb; c <= col_ub; c++) {
+            if (r == row && c == col) {
+                continue;
+            }
+            if (document.getElementById(String(r) + '-' + String(c)).innerText == document.getElementById(String(row) + '-' + String(col)).innerText) {
+                console.log("return 3");
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function determine3x3Block(row, col) { // checks which 3x3 block a digit is placed, returns [row_lb, row_ub, col_lb, col_ub]
+    if (row <= 2) { 
+        if (col <= 2) { // block 1
+            return [0,2,0,2];
+        }
+        else if (col <= 5) { // block 2
+            return [0,2,3,5];
+        }
+        else { // block 3
+            return [0,2,6,8];
+        }
+    }
+    else if (row <= 5) {
+        if (col <= 2) { // block 4
+            return [3,5,0,2];
+        }
+        else if (col <= 5) { // block 5
+            return [3,5,3,5];
+        }
+        else { // block 6
+            return [3,5,6,8];
+        }
+    }
+    else {
+        if (col <= 2) { // block 7
+            return [6,8,0,2];
+        }
+        else if (col <= 5) { // block 8
+            return [6,8,3,5];
+        }
+        else { // block 9
+            return [6,8,6,8];
+        }
+    }
 }
 
 function completedDigit() { // removes functionality from digitTile when a digit is completed
@@ -176,7 +263,6 @@ function printDigitsCount() {
 - add button to clear board
 - using backspace deletes number on board
 - can use keyboard numbers to place down numbers
-- if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
 */
 
 /* IMPROVEMENTS FINISHED
@@ -185,5 +271,6 @@ function printDigitsCount() {
 - allow incorrect placements
 - remove error count
 - make digit disappear once all 9 are on the board
+- if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
 
 */
