@@ -67,7 +67,7 @@ function setGame() {
 
 function selectTile() { // highlights a boardTile
     if (tileSelected != null) { // old selection
-        tileSelected.classList.remove("number-selected"); // remove previous graying
+        tileSelected.classList.remove("number-selected"); // remove previous graying on another boardTile
     }
     if (tileSelected == this) {
         tileSelected.classList.remove("number-selected"); // remove graying if clicked on again
@@ -77,6 +77,32 @@ function selectTile() { // highlights a boardTile
     tileSelected = this; // new selection
     if (tileSelected.classList.contains("tile-start") == false) {
         tileSelected.classList.add("number-selected"); // add graying
+    }
+
+    detectClicksOutsideBoard(); // removes selected boardTile graing when there is outside click
+}
+
+function detectClicksOutsideBoard() { // returns true if detected outside click, false if detected inside click
+    document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
+        let count = 0;
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                if (!(document.getElementById(String(r) + '-' + String(c)).contains(event.target))) {
+                    count++;
+                }
+            }
+        }
+        if (count == 81) {
+            unselectAllBoardTiles();
+        }
+    });
+}
+
+function unselectAllBoardTiles() { // gets rid of graying on all tiles
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            document.getElementById(String(r) + '-' + String(c)).classList.remove("number-selected");
+        }
     }
 }
 
@@ -272,5 +298,6 @@ function printDigitsCount() {
 - remove error count
 - make digit disappear once all 9 are on the board
 - if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
+- remove graying on boardTile when clicking outside board
 
 */
