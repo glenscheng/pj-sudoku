@@ -65,5 +65,9 @@ hr {
 }
 
 .vertical-line {
-        border-right: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.incorrect-placement {
+color: red;
 }

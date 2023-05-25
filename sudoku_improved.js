@@ -65,7 +65,7 @@ function setGame() {
     }
 }
 
-function selectTile() {
+function selectTile() { // highlights a boardTile
     if (tileSelected != null) { // old selection
         tileSelected.classList.remove("number-selected"); // remove previous graying
     }
@@ -80,15 +80,12 @@ function selectTile() {
     }
 }
 
-function selectDigit() {
+function selectDigit() { // places down number
     if (tileSelected != null) { // digit selection
         if (tileSelected.classList.contains("tile-start") == true) { // return if already number at that boardTile
             return;
         }
 
-        // let coords = tileSelected.id.split("-"); // ["0", "0"] ...
-        // let row = parseInt(coords[0]);
-        // let col = parseInt(coords[1]);
         let oldDigitSelected = digitSelected;
         digitSelected = this;
 
@@ -108,10 +105,21 @@ function selectDigit() {
         completedDigit();
         unCompletedDigit();
         printDigitsCount();
+
+        checkPlacement();
     }
 }
 
-function completedDigit() {
+function checkPlacement() {
+    let coords = tileSelected.id.split("-"); // ["0", "0"] ...
+    let row = parseInt(coords[0]);
+    let col = parseInt(coords[1]);
+    // check horizontal block
+    // check vertical block
+    // check 3x3 block
+}
+
+function completedDigit() { // removes functionality from digitTile when a digit is completed
     for (let i = 1; i <= 9; i++) {
         if (digitSelected.id == String(i) && digitsCount[i] == 9) {
             digitSelected.classList.remove("digits");
@@ -119,35 +127,9 @@ function completedDigit() {
             return;
         }
     }
-    /*
-    let completed = false;
-    if (digitSelected.id == "1" && one == 9) {
-        completed = true;
-    } else if (digitSelected.id == "2" && two == 9) {
-        completed = true;
-    } else if (digitSelected.id == "3" && three == 9) {
-        completed = true;
-    } else if (digitSelected.id == "4" && four == 9) {
-        completed = true;
-    } else if (digitSelected.id == "5" && five == 9) {
-        completed = true;
-    } else if (digitSelected.id == "6" && six == 9) {
-        completed = true;
-    } else if (digitSelected.id == "7" && seven == 9) {
-        completed = true;
-    } else if (digitSelected.id == "8" && eight == 9) {
-        completed = true;
-    } else if (digitSelected.id == "9" && nine == 9) {
-        completed = true;
-    }
-    if (completed == true) {
-        digitSelected.classList.remove("digits");
-        digitSelected.innerText = "";
-    }
-    */
 }
 
-function unCompletedDigit() {
+function unCompletedDigit() { // adds functionality back to digitTile when a digit is no longer completed
     for (let i = 1; i <= 9; i++) {
         if (digitsCount[i] != 9) {
             document.getElementById(String(i)).classList.add("digits");
@@ -156,7 +138,7 @@ function unCompletedDigit() {
     }
 }
 
-function checkToStopPlacingDigits() {
+function checkToStopPlacingDigits() { // checks if selected digit already has been placed 9 times 
     if (digitsCount[parseInt(digitSelected.id)] == 9) {
         return true;
     }
@@ -194,7 +176,7 @@ function printDigitsCount() {
 - add button to clear board
 - using backspace deletes number on board
 - can use keyboard numbers to place down numbers
-- if a number is not supposed to be there based on current board, make it red (check 3 blocks)
+- if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
 */
 
 /* IMPROVEMENTS FINISHED
