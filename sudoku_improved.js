@@ -118,7 +118,7 @@ function selectDigit() { // places down number
     }
 }
 
-function checkCorrectPlacement() {
+function checkCorrectPlacement() { // removes red font if any number on board is no longer incorrect
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             if (document.getElementById(String(r) + '-' + String(c)).classList.contains("incorrect-placement") == true) {
@@ -132,7 +132,7 @@ function checkCorrectPlacement() {
     }
 }
 
-function checkIncorrectPlacement(row, col) {
+function checkIncorrectPlacement(row, col) { // returns true if correct placement, false if incorrect
     // check horizontal block
     for (let c = 0; c < 9; c++) {
         if (c == col) {
