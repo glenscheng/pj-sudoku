@@ -1,14 +1,7 @@
 var digitSelected = null;
 var tileSelected = null;
-var one = 4;
-var two = 3;
-var three = 3;
-var four = 4;
-var five = 3;
-var six = 5;
-var seven = 5;
-var eight = 4;
-var nine = 4;
+var digitsCount = new Array(10)
+initiateDigitsCount();
 
 var board = [
     "--74916-5",
@@ -100,13 +93,15 @@ function selectDigit() {
         digitSelected = this;
 
         let oldTileSelectedInnerText = tileSelected.innerText;
-        if (checkToStopPlacingDigits() === true) {
+        if (checkToStopPlacingDigits() == true) {
             return;
         }
        
         tileSelected.innerText = digitSelected.id; // place down selected digit
         if (oldDigitSelected != null && oldTileSelectedInnerText != "" &&
             tileSelected.innerText != oldTileSelectedInnerText) {
+            digitsCount[parseInt(oldTileSelectedInnerText)]--;
+            /*
             switch(oldTileSelectedInnerText) {
                 case "1":
                     one--; break;
@@ -127,8 +122,11 @@ function selectDigit() {
                 case "9":
                     nine--; break;
             }
+            */
         }
         if (/*tileSelected.innerText == "" ||*/ tileSelected.innerText != oldTileSelectedInnerText) {
+            digitsCount[parseInt(digitSelected.id)]++;
+            /*
             switch(digitSelected.id) {
                 case "1":
                     one++; break;
@@ -149,9 +147,12 @@ function selectDigit() {
                 case "9":
                     nine++; break;
             }
+            */
         }
         completedDigit();
         unCompletedDigit();
+        printDigitsCount();
+        /*
         console.log(one);
         console.log(two);
         console.log(three);
@@ -162,11 +163,19 @@ function selectDigit() {
         console.log(eight);
         console.log(nine);
         console.log("");
-
+        */
     }
 }
 
 function completedDigit() {
+    for (let i = 1; i <= 9; i++) {
+        if (digitSelected.id == String(i) && digitsCount[i] == 9) {
+            digitSelected.classList.remove("digits");
+            digitSelected.innerText = "";
+            return;
+        }
+    }
+    /*
     let completed = false;
     if (digitSelected.id == "1" && one == 9) {
         completed = true;
@@ -191,9 +200,18 @@ function completedDigit() {
         digitSelected.classList.remove("digits");
         digitSelected.innerText = "";
     }
+    */
 }
 
 function unCompletedDigit() {
+    for (let i = 1; i <= 9; i++) {
+        if (digitsCount[i] != 9) {
+            // digitSelected.classList.add("digits"); // shouldn't this line use i?
+            document.getElementById(String(i)).classList.add("digits");
+            document.getElementById(String(i)).innerText = String(i);
+        }
+    }
+    /*
     if (one != 9) {
         digitSelected.classList.add("digits");
         document.getElementById("1").innerText = "1";
@@ -230,9 +248,15 @@ function unCompletedDigit() {
         digitSelected.classList.add("digits");
         document.getElementById("9").innerText = "9";
     }
+    */
 }
 
 function checkToStopPlacingDigits() {
+    if (digitsCount[parseInt(digitSelected.id)] == 9) {
+        return true;
+    }
+    return false;
+    /*
     switch(digitSelected.id) {
             case "1":
                 if (one == 9) {
@@ -281,6 +305,27 @@ function checkToStopPlacingDigits() {
                 break;
         }
     return false;
+    */
+}
+
+function initiateDigitsCount() {
+    digitsCount[0] = -1;
+    digitsCount[1] = 4;
+    digitsCount[2] = 3;
+    digitsCount[3] = 3;
+    digitsCount[4] = 4;
+    digitsCount[5] = 3;
+    digitsCount[6] = 5;
+    digitsCount[7] = 5;
+    digitsCount[8] = 4;
+    digitsCount[9] = 4;
+}
+
+function printDigitsCount() {
+    for (let i = 1; i <= 9; i++) {
+        console.log(digitsCount[i]);
+    }
+    console.log("");
 }
 
 /* IMPROVEMENTS IN PROGRESS
