@@ -26,6 +26,27 @@ hr {
     flex-wrap: wrap;
 }
 
+#delete {
+    width: 146px;
+    height: 23px;
+
+    margin: 0 auto;
+    margin-top: -1.2%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.delete-tile {
+    border: 1px solid black;
+    margin: 2px;
+
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .board-tile {
     color: royalblue;
 

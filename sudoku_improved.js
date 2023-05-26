@@ -78,6 +78,14 @@ function setGame() {
         document.getElementById("digits").appendChild(digitsTile);
     }
     initiateDigitsCount();
+
+    // delete button
+    let deleteButton = document.createElement("div");
+    deleteButton.id = "delete";
+    deleteButton.innerText = "Delete";
+    // deleteButton.addEventListener("click", deleteNumber);
+    deleteButton.classList.add("delete-tile");
+    document.getElementById("delete").appendChild(deleteButton);
 }
 
 function selectTile() { // highlights a boardTile
@@ -390,7 +398,6 @@ function confettiOn() {
 }
 
 /* IMPROVEMENTS IN PROGRESS
-- add confetti when you win
 - add backspace button
 - allow only 3 mistakes
 - add timer
@@ -413,5 +420,6 @@ function confettiOn() {
 - if a number is not supposed to be there based on current board, make it red (check 3 "blocks")
 - remove graying on boardTile when clicking outside board
 - when clicking a number on a boardTile, highlight (yellow) all of the same numbers on the board
+- add confetti when you win
 
 */
