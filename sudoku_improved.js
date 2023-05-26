@@ -394,7 +394,6 @@ function confettiOn() {
 }
 
 /* IMPROVEMENTS IN PROGRESS
-- add backspace button
 - allow only 3 mistakes
 - add timer
 - add button to show solution
@@ -417,5 +416,6 @@ function confettiOn() {
 - remove graying on boardTile when clicking outside board
 - when clicking a number on a boardTile, highlight (yellow) all of the same numbers on the board
 - add confetti when you win
+- add backspace button
 
 */
