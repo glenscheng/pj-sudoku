@@ -81,7 +81,7 @@ function setGame() {
     let deleteButton = document.createElement("div");
     deleteButton.id = "delete";
     deleteButton.innerText = "Delete";
-    // deleteButton.addEventListener("click", deleteNumber);
+    deleteButton.addEventListener("click", deleteNumber);
     deleteButton.classList.add("delete-tile");
     document.getElementById("delete").appendChild(deleteButton);
 }
@@ -99,6 +99,7 @@ function selectTile() { // highlights a boardTile
         tileSelected.classList.remove("number-selected"); // remove graying if clicked on again
         if (tileSelected != null && tileSelected.innerText != '') {
             highlightSameNumbers();
+            tileSelected.classList.add("number-selected");
         }
         tileSelected = null;
         return;
@@ -111,7 +112,7 @@ function selectTile() { // highlights a boardTile
         tileSelected.classList.add("number-selected"); // add graying
     }
 
-    detectClicksOutsideBoardAndDigits(); // removes all boardTiles' formatting when there is outside click
+    detectClicksOutside(); // removes all boardTiles' formatting when there is outside click
 }
 
 function selectDigit() { // places down number
@@ -155,8 +156,20 @@ function selectDigit() { // places down number
     }
 }
 
+function deleteNumber() {
+    if (tileSelected == null || tileSelected.classList.contains("tile-start")) {
+        return;
+    }
+    digitsCount[parseInt(tileSelected.innerText)]--;
+    tileSelected.classList.remove("highlight-tile");
+    tileSelected.innerText = '';
+    completedDigit();
+    unCompletedDigit();
+    printDigitsCount();
+    checkCorrectPlacement();
+}
+
 function highlightSameNumbers() {
-    tileSelected.classList.add("highlight-tile");
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             if (document.getElementById(String(r) + '-' + String(c)).innerText == tileSelected.innerText) {
@@ -164,6 +177,10 @@ function highlightSameNumbers() {
             }
         }
     }
+    if (!tileSelected.classList.contains("tile-start")) {
+        tileSelected.classList.remove("highlight-tile");
+    }
+    tileSelected.classList.add("number-selected");
 }
 
 function unhighlightSameNumbers() {
@@ -174,28 +191,7 @@ function unhighlightSameNumbers() {
     }
 }
 
-function detectClicksOutsideBoard() { // removes formatting on board if detected outside click
-    document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
-        let count = 0;
-        for (let r = 0; r < 9; r++) {
-            for (let c = 0; c < 9; c++) {
-                if (!(document.getElementById(String(r) + '-' + String(c)).contains(event.target))) {
-                    count++;
-                }
-            }
-        }
-        if (count == 81) {
-            unselectAllBoardTiles(); 
-            unhighlightSameNumbers();
-            detectedClicksOutsideBoard = true;
-        } 
-        else {
-            detectedClicksOutsideBoard = false;
-        }
-    });
-}
-
-function detectClicksOutsideBoardAndDigits() {
+function detectClicksOutside() {
     document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
         let count = 0;
         for (let r = 0; r < 9; r++) {
@@ -213,8 +209,10 @@ function detectClicksOutsideBoardAndDigits() {
                 }
             }
             if (count == 9) {
-                unselectAllBoardTiles(); 
-                unhighlightSameNumbers();  
+                if (!(document.getElementById("delete")).contains(event.target)) {
+                    unselectAllBoardTiles(); 
+                    unhighlightSameNumbers();  
+                }
             } 
         }
     });
