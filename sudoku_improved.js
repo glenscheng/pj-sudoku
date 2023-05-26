@@ -4,6 +4,7 @@ var digitsCount = new Array(10)
 var detectedClickOutsideBoard = false;
 initiateDigitsCount();
 
+/*
 var board = [
     "--74916-5",
     "2---6-3-9",
@@ -14,6 +15,19 @@ var board = [
     "9-4-7---2",
     "67-83----",
     "81--45---"
+]
+*/
+
+var board = [
+    "3-7491625",
+    "241568379",
+    "569327418",
+    "758619234",
+    "123784596",
+    "496253187",
+    "934176852",
+    "675832941",
+    "812945763"
 ]
 
 var solution = [
@@ -321,6 +335,7 @@ function checkToStopPlacingDigits() { // checks if selected digit already has be
 }
 
 function initiateDigitsCount() {
+    /*
     digitsCount[0] = -1;
     digitsCount[1] = 4;
     digitsCount[2] = 3;
@@ -331,6 +346,17 @@ function initiateDigitsCount() {
     digitsCount[7] = 5;
     digitsCount[8] = 4;
     digitsCount[9] = 4;
+    */
+    digitsCount[0] = -1;
+    digitsCount[1] = 9;
+    digitsCount[2] = 9;
+    digitsCount[3] = 9;
+    digitsCount[4] = 9;
+    digitsCount[5] = 9;
+    digitsCount[6] = 9;
+    digitsCount[7] = 9;
+    digitsCount[8] = 8;
+    digitsCount[9] = 9;
 }
 
 function printDigitsCount() {
@@ -348,7 +374,7 @@ function confettiOn() {
     }
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
-            if (document.getElementsById(String(r) + '-' + String(c)).classList.contains("incorrect-placement")) {
+            if (document.getElementById(String(r) + '-' + String(c)).classList.contains("incorrect-placement")) {
                 return;
             }
         }
