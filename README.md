@@ -28,3 +28,4 @@ Turotial Sudoku Website: https://glenscheng.github.io/pj-sudoku-tutorial/
 <br />&emsp;- Added confetti when the board is completed with no incorrect placements
 <br />&emsp;- Fixed bug of whether the digit buttons should start blank or not
 <br />&emsp;- Added delete button
+<br />&emsp;- Added allowance of 3 mistakes
