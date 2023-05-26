@@ -2,7 +2,9 @@
 
 Improved Sudoku Website: https://glenscheng.github.io/pj-sudoku-improved/
 <br /><br />
-**Resources:** https://youtu.be/S4uRtTb8U-U'
+**Resources:** 
+<br />
+YouTube Tutorial: https://youtu.be/S4uRtTb8U-U'
 <br />
 Tutorial Sudoku Repository: https://github.com/glenscheng/pj-sudoku-tutorial
 <br />
