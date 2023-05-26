@@ -11,5 +11,5 @@ Improved Sudoku Website: https://glenscheng.github.io/pj-sudoku-improved/
 Change Log:
 <br />
 05/24/2023: 
-&emsp;- Placement happens after first selecting a tile on the board and then clicking any digit
-&emsp;- When clicking already gray tile on the board, turn it back to white
+<br />&emsp;- Placement happens after first selecting a tile on the board and then clicking any digit
+<br />&emsp;- When clicking already gray tile on the board, turn it back to white
