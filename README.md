@@ -1,4 +1,4 @@
-# pj-sudoku
+# pj-sudoku-improved
 Sudoku Game Project
 
 Resources: https://youtu.be/S4uRtTb8U-U
