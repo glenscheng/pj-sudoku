@@ -3,7 +3,6 @@ var tileSelected = null;
 var digitsCount = new Array(10)
 var detectedClickOutsideBoard = false;
 
-/*
 var board = [
     "--74916-5",
     "2---6-3-9",
@@ -15,8 +14,7 @@ var board = [
     "67-83----",
     "81--45---"
 ]
-*/
-
+/*
 var board = [
     "3-7491625",
     "241568379",
@@ -28,7 +26,7 @@ var board = [
     "675832941",
     "812945763"
 ]
-
+*/
 var solution = [
     "387491625",
     "241568379",
@@ -343,7 +341,7 @@ function checkToStopPlacingDigits() { // checks if selected digit already has be
 }
 
 function initiateDigitsCount() {
-    /*
+
     digitsCount[0] = -1;
     digitsCount[1] = 4;
     digitsCount[2] = 3;
@@ -354,7 +352,7 @@ function initiateDigitsCount() {
     digitsCount[7] = 5;
     digitsCount[8] = 4;
     digitsCount[9] = 4;
-    */
+    /*
     digitsCount[0] = -1;
     digitsCount[1] = 9;
     digitsCount[2] = 9;
@@ -365,7 +363,7 @@ function initiateDigitsCount() {
     digitsCount[7] = 9;
     digitsCount[8] = 8;
     digitsCount[9] = 9;
-    
+    */
     for (let i = 1; i <= 9; i++) {
         if (digitsCount[i] == 9) {
             document.getElementById(String(i)).classList.remove("digits");
