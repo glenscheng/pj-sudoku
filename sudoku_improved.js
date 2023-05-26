@@ -304,6 +304,7 @@ function printDigitsCount() {
 }
 
 /* IMPROVEMENTS IN PROGRESS
+- add backspace button
 - allow only 3 mistakes
 - add timer
 - add button to show solution
