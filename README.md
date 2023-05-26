@@ -14,6 +14,7 @@ Change Log:
 <br />&emsp;- Placement happens after first selecting a tile on the board and then clicking any digit
 <br />&emsp;- When clicking already gray tile on the board, turn it back to white
 <br />&emsp;- Make digit button disappear once all 9 are on the board
+<br />
 05/25/2023:
 <br />&emsp;- Implemented an array for counts of each digit
 <br />&emsp;- Remove error count and allow incorrect placements
