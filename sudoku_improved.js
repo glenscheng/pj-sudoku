@@ -152,6 +152,7 @@ function selectDigit() { // places down number
             tileSelected.classList.add("incorrect-placement");
         }
         checkCorrectPlacement();
+        determineGameOver();
         confettiOn();
     }
 }
@@ -167,6 +168,27 @@ function deleteNumber() {
     unCompletedDigit();
     printDigitsCount();
     checkCorrectPlacement();
+    tileSelected.classList.remove("incorrect-placement");
+    determineGameOver();
+}
+
+function countMistakes() {
+    let count = 0;
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if(document.getElementById(String(r) + '-' + String(c)).classList.contains("incorrect-placement")) {
+                count++;
+            }
+        }
+    }
+    document.getElementById("mistakes").innerText = "Mistakes: " + String(count) + "/3";
+    return count;
+}
+
+function determineGameOver() {
+    if (countMistakes() == 3) {
+        alert("you lost!");
+    }
 }
 
 function highlightSameNumbers() {
@@ -394,7 +416,6 @@ function confettiOn() {
 }
 
 /* IMPROVEMENTS IN PROGRESS
-- allow only 3 mistakes
 - add timer
 - add button to show solution
 - add button to check board
@@ -417,5 +438,6 @@ function confettiOn() {
 - when clicking a number on a boardTile, highlight (yellow) all of the same numbers on the board
 - add confetti when you win
 - add backspace button
+- allow only 3 mistakes
 
 */
