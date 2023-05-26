@@ -407,7 +407,7 @@ function confettiOn() {
 */
 
 /* IMPROVEMENTS FINISHED
-- when clicking already gray digitsTile, make it back to white
+- when clicking already gray boardTile, make it back to white
 - click boardTile first, then click any digitTile to place a digit
 - allow incorrect placements
 - remove error count
