@@ -43,6 +43,7 @@ hr {
     height: 23px;
 
     margin: 0 auto;
+    margin-top: -2%;
     display: flex;
     flex-wrap: wrap;
 }
