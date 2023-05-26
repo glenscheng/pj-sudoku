@@ -7,5 +7,5 @@ Tutorial Sudoku Repository: https://github.com/glenscheng/pj-sudoku-tutorial
 Turotial Sudoku Website: https://glenscheng.github.io/pj-sudoku-tutorial/
 
 Improved Sudoku Website: https://glenscheng.github.io/pj-sudoku-improved/
-<br />
+<br /><br /><br />
 Change Log:
