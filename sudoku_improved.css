@@ -7,8 +7,20 @@ hr {
     width: 500px;
 }
 
-#board {
+.subtitles {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 29vw; /* distance between clock and mistakes */ /* #vw means #% of viewport width */
+    margin-left: 35vw; /* distance from left side of screen to clock */
+    line-height: 0px;
+  }
 
+#clock {
+    color: black;
+}
+
+#board {
     width: 450px;
     height: 450px;
 
