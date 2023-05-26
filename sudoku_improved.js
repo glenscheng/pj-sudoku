@@ -1,6 +1,7 @@
 var digitSelected = null;
 var tileSelected = null;
 var digitsCount = new Array(10)
+var detectedClickOutsideBoard = false;
 initiateDigitsCount();
 
 var board = [
@@ -70,6 +71,10 @@ function selectTile() { // highlights a boardTile
     if (tileSelected != null) { // old selection
         tileSelected.classList.remove("number-selected"); // remove previous graying on another boardTile
     }
+    if (detectedClickOutsideBoard) {
+        console.log("returning");
+        return;
+    }
     if (tileSelected == this) {
         tileSelected.classList.remove("number-selected"); // remove graying if clicked on again
         if (tileSelected != null && tileSelected.innerText != '') {
@@ -86,7 +91,7 @@ function selectTile() { // highlights a boardTile
         tileSelected.classList.add("number-selected"); // add graying
     }
 
-    detectClicksOutsideBoard(); // removes all boardTiles' formatting when there is outside click
+    detectClicksOutsideBoardAndDigits(); // removes all boardTiles' formatting when there is outside click
 }
 
 function selectDigit() { // places down number
@@ -103,6 +108,7 @@ function selectDigit() { // places down number
             return;
         }
        
+        unhighlightSameNumbers();
         tileSelected.innerText = digitSelected.id; // place down selected digit
         highlightSameNumbers();
         let coords = tileSelected.id.split("-"); // ["0", "0"] ...
@@ -125,6 +131,7 @@ function selectDigit() { // places down number
             tileSelected.classList.add("incorrect-placement");
         }
         checkCorrectPlacement();
+        confettiOn();
     }
 }
 
@@ -147,7 +154,7 @@ function unhighlightSameNumbers() {
     }
 }
 
-function detectClicksOutsideBoard() { // removes formatting on board if detected outside click, returns true if detected outside click, false if detected inside click
+function detectClicksOutsideBoard() { // removes formatting on board if detected outside click
     document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
         let count = 0;
         for (let r = 0; r < 9; r++) {
@@ -158,8 +165,37 @@ function detectClicksOutsideBoard() { // removes formatting on board if detected
             }
         }
         if (count == 81) {
-            unselectAllBoardTiles();
+            unselectAllBoardTiles(); 
             unhighlightSameNumbers();
+            detectedClicksOutsideBoard = true;
+        } 
+        else {
+            detectedClicksOutsideBoard = false;
+        }
+    });
+}
+
+function detectClicksOutsideBoardAndDigits() {
+    document.addEventListener("mouseup", function(event) { // event listener for clicks outside all boardTiles 
+        let count = 0;
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                if (!(document.getElementById(String(r) + '-' + String(c)).contains(event.target))) {
+                    count++;
+                }
+            }
+        }
+        if (count == 81) {
+            count = 0;
+            for (let i = 1; i <= 9; i++) { // iterate through digits
+                if (!(document.getElementById(String(i))).contains(event.target)) {
+                    count++;
+                }
+            }
+            if (count == 9) {
+                unselectAllBoardTiles(); 
+                unhighlightSameNumbers();  
+            } 
         }
     });
 }
@@ -170,6 +206,7 @@ function unselectAllBoardTiles() { // gets rid of graying on all tiles
             document.getElementById(String(r) + '-' + String(c)).classList.remove("number-selected");
         }
     }
+    tileSelected = null;
 }
 
 function checkCorrectPlacement() { // removes red font if any number on board is no longer incorrect
@@ -303,7 +340,24 @@ function printDigitsCount() {
     console.log("");
 }
 
+function confettiOn() {
+    for (let i = 1; i <= 9; i++) {
+        if (digitsCount[i] != 9) {
+            return;
+        }
+    }
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (document.getElementsById(String(r) + '-' + String(c)).classList.contains("incorrect-placement")) {
+                return;
+            }
+        }
+    }
+    startConfetti();
+}
+
 /* IMPROVEMENTS IN PROGRESS
+- add confetti when you win
 - add backspace button
 - allow only 3 mistakes
 - add timer
