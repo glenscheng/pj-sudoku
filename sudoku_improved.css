@@ -11,8 +11,8 @@ hr {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 29vw; /* distance between clock and mistakes */ /* #vw means #% of viewport width */
-    margin-left: 35vw; /* distance from left side of screen to clock */
+    width: 21vw; /* distance between clock and mistakes */ /* #vw means #% of viewport width */
+    margin-left: 39vw; /* distance from left side of screen to clock */
     line-height: 0px;
   }
 
@@ -43,7 +43,7 @@ hr {
     height: 23px;
 
     margin: 0 auto;
-    margin-top: -1.2%;
+    margin-top: -0.82%;
     display: flex;
     flex-wrap: wrap;
 }
