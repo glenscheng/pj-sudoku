@@ -2,7 +2,6 @@ var digitSelected = null;
 var tileSelected = null;
 var digitsCount = new Array(10)
 var detectedClickOutsideBoard = false;
-initiateDigitsCount();
 
 var board = [
     "--74916-5",
@@ -15,6 +14,7 @@ var board = [
     "67-83----",
     "81--45---"
 ]
+
 /*
 var board = [
     "3-7491625",
@@ -77,6 +77,7 @@ function setGame() {
         digitsTile.classList.add("digits-tile"); // add formatting
         document.getElementById("digits").appendChild(digitsTile);
     }
+    initiateDigitsCount();
 }
 
 function selectTile() { // highlights a boardTile
@@ -356,6 +357,12 @@ function initiateDigitsCount() {
     digitsCount[8] = 8;
     digitsCount[9] = 9;
     */
+    for (let i = 1; i <= 9; i++) {
+        if (digitsCount[i] == 9) {
+            document.getElementById(String(i)).classList.remove("digits");
+            document.getElementById(String(i)).innerText = "";
+        }
+    }
 }
 
 function printDigitsCount() {
