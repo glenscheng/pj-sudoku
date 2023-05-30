@@ -169,6 +169,10 @@ async function startClock() {
             minute++;
             second = 0;
         }
+
+        if (minute == 60) {
+            minute = 0;
+        }
  
         let minString = minute;
         let secString = second;
