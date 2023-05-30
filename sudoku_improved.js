@@ -191,11 +191,6 @@ async function startClock() {
     }
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
 function deleteNumber() {
     if (tileSelected == null || tileSelected.classList.contains("tile-start")) {
         return;
@@ -225,9 +220,10 @@ function countMistakes() {
     return count;
 }
 
-function determineGameOver() {
+function determineGameOver() { // when you lose
     if (countMistakes() == 3) {
         alert("you lost!");
+        gameFinished();
     }
 }
 
@@ -439,7 +435,7 @@ function printDigitsCount() {
     console.log("");
 }
 
-function confettiOn() {
+function confettiOn() { // when you win
     for (let i = 1; i <= 9; i++) {
         if (digitsCount[i] != 9) {
             return;
@@ -453,6 +449,25 @@ function confettiOn() {
         }
     }
     startConfetti();
+    gameFinished();
+}
+
+function gameFinished() { // when the game is done
+    timer = false; // stop stopwatch
+    
+    // remove all eventListeners from all elements
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            document.getElementById(String(r) + '-' + String(c)).removeEventListener("click", selectTile); // boardTiles
+        }
+    }
+    for (let i = 1; i <= 9; i++) {
+        document.getElementById(String(i)).addEventListener("click", selectDigit); // digitTiles
+    }
+    document.getElementById("delete").addEventListener("click", deleteNumber); // delete button
+    
+    unhighlightSameNumbers();
+    unselectAllBoardTiles();
 }
 
 /* IMPROVEMENTS IN PROGRESS
