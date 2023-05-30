@@ -471,13 +471,12 @@ function gameFinished() { // when the game is done
 }
 
 /* IMPROVEMENTS IN PROGRESS
-- add timer
+- add button to clear board
+- add generation of new boards/solutions
 - add button to show solution
 - add button to check board
 - add button to check boardTile
 - add pencil notes functionality (little numbers)
-- add generation of new boards/solutions
-- add button to clear board
 - using backspace deletes number on board
 - can use keyboard numbers to place down numbers
 */
@@ -494,5 +493,6 @@ function gameFinished() { // when the game is done
 - add confetti when you win
 - add backspace button
 - allow only 3 mistakes
+- add timer
 
 */
