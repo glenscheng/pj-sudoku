@@ -3,6 +3,10 @@ var tileSelected = null;
 var digitsCount = new Array(10)
 var detectedClickOutsideBoard = false;
 
+var minute = 00;
+var second = 00;
+var timer = true;
+
 var board = [
     "--74916-5",
     "2---6-3-9",
@@ -41,6 +45,7 @@ var solution = [
 
 window.onload = function() {
     setGame();
+    startClock();
 }
 
 function setGame() {
@@ -157,6 +162,40 @@ function selectDigit() { // places down number
     }
 }
 
+async function startClock() {
+    if (timer) {
+        // const start = Date.now();
+        if (second == 60) {
+            minute++;
+            second = 0;
+        }
+ 
+        let minString = minute;
+        let secString = second;
+ 
+        if (minute < 10) {
+            minString = "0" + minString;
+        }
+ 
+        if (second < 10) {
+            secString = "0" + secString;
+        }
+ 
+        document.getElementById('min').innerHTML = minString;
+        document.getElementById('sec').innerHTML = secString;
+        // await delay(990); // 990ms gets it close to 1s delay
+        second++;
+        setTimeout(startClock, 999);
+        // const end = Date.now();
+        // console.log(`Execution time: ${end - start} ms`);
+    }
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 function deleteNumber() {
     if (tileSelected == null || tileSelected.classList.contains("tile-start")) {
         return;
@@ -170,6 +209,7 @@ function deleteNumber() {
     checkCorrectPlacement();
     tileSelected.classList.remove("incorrect-placement");
     determineGameOver();
+    unhighlightSameNumbers();
 }
 
 function countMistakes() {
