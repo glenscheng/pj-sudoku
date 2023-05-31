@@ -475,6 +475,7 @@ function gameFinished() { // when the game is done
 }
 
 /* IMPROVEMENTS IN PROGRESS
+- make mistakes stay
 - add button to clear board
 - add generation of new boards/solutions
 - add button to show solution
